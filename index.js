@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const circle = require('./lib/shapes');
+const Circle = require('./lib/shapes');
 
 // const questions = [
 //     {
@@ -67,5 +67,5 @@ const data = {
     textColour: 'red'
 }
 
-const svg = circle(data.shapeColour, data.text, data.textColour);
-console.log(svg);
+const newCircle = new Circle(data.shapeColour, data.text, data.textColour);
+const svg = newCircle.render(); 
