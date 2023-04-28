@@ -33,32 +33,39 @@ function init() {
     inquirer
         .prompt(questions)
         .then((answers) => {
-            //can this be done in a function. Think OOP (object oriented programming)
-            const logoShape = answers.shape;
-            let svgRender;
-
-            switch (logoShape) {
-                case "Circle":
-                    const circle = new Circle(answers.shapeColour, answers.text, answers.textColour);
-                    svgRender = circle.render();
-                    return svgRender;
-                case "Square":
-                    const square = new Square(answers.shapeColour, answers.text, answers.textColour);
-                    svgRender = square.render();
-                    return svgRender;
-                case "Triangle":
-                    const triangle = new Triangle(answers.shapeColour, answers.text, answers.textColour);
-                    svgRender = triangle.render();
-                    return svgRender;
-            }
-        })
-        .then((render) => {
-            //write svg file here
-            console.log(render)
+            const logo = renderLogo(answers);
+            writeToFile("logo.svg", logo);
         })
         .catch((err) => {
             console.log(err)
         });
+}
+
+renderLogo = (answers) => {
+    const logoShape = answers.shape;
+    let svgRender;
+
+    switch (logoShape) {
+        case "Circle":
+            const circle = new Circle(answers.shapeColour, answers.text, answers.textColour);
+            svgRender = circle.render();
+            return svgRender;
+        case "Square":
+            const square = new Square(answers.shapeColour, answers.text, answers.textColour);
+            svgRender = square.render();
+            return svgRender;
+        case "Triangle":
+            const triangle = new Triangle(answers.shapeColour, answers.text, answers.textColour);
+            svgRender = triangle.render();
+            return svgRender;
+    }
+}
+
+//should wrtieToFile and renderLogo be kept in a different file for modularisation?
+writeToFile = (fileName, data) => {
+    fs.writeFile(fileName, data, (err) =>
+        err ? console.log(err) : console.log("logo.svg successfully created!")
+    );
 }
 
 init();
