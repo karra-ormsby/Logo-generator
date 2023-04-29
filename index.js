@@ -19,7 +19,7 @@ const questions = [
         //need to test for character > 0 and characters <= 3
         type: 'input',
         name: 'text',
-        message: 'Enter text for your logo (must not be more than 3 characters).',
+        message: 'Enter text for your logo (must not be more than 3 characters)'
     },
     {
         //need to test that colour entered fits the parameters
@@ -33,7 +33,10 @@ function init() {
     inquirer
         .prompt(questions)
         .then((answers) => {
-            const logo = renderLogo(answers);
+            const logoShape = answers.shape;
+            const svgShape = renderShape(logoShape);
+            const logo = renderSVG(answers, svgShape);
+
             writeToFile("logo.svg", logo);
         })
         .catch((err) => {
@@ -41,27 +44,34 @@ function init() {
         });
 }
 
-renderLogo = (answers) => {
-    const logoShape = answers.shape;
+//should wrtieToFile and renderLogo be kept in a different file for modularisation?
+renderShape = (logoShape) => {
     let svgRender;
 
     switch (logoShape) {
         case "Circle":
-            const circle = new Circle(answers.shapeColour, answers.text, answers.textColour);
+            const circle = new Circle(logoShape);
             svgRender = circle.render();
             return svgRender;
         case "Square":
-            const square = new Square(answers.shapeColour, answers.text, answers.textColour);
+            const square = new Square(logoShape);
             svgRender = square.render();
             return svgRender;
         case "Triangle":
-            const triangle = new Triangle(answers.shapeColour, answers.text, answers.textColour);
+            const triangle = new Triangle(logoShape);
             svgRender = triangle.render();
             return svgRender;
     }
 }
 
-//should wrtieToFile and renderLogo be kept in a different file for modularisation?
+renderSVG = (answers, svgShape) => {
+    return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+            ${svgShape}
+            <text x="150" y="125" width="120" font-size="60" text-anchor="middle" fill="${answers.textColour}">${answers.text}</text>
+</svg >`
+}
+
+
 writeToFile = (fileName, data) => {
     fs.writeFile(fileName, data, (err) =>
         err ? console.log(err) : console.log("logo.svg successfully created!")
