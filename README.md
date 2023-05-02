@@ -34,7 +34,7 @@ If there is certain criteria to be met for an input, it will be stated in the qu
 ![invalid colour](./assets/images/invalid%20colour.png)
 ![invalid text](./assets/images/invalid%20text.png)
 
-You will not be allowed to continue to the next question until valid input is entered. Once all questions are answered you will see a message in the terminal "logo.svg successfully created!" to indicate that the file creation has been successful. If there has been an issue an error message will appear. You can then click on the “logo.svg” file to view the file.
+You will not be allowed to continue to the next question until valid input is entered. Once all questions are answered you will see a message in the terminal "Generated logo.svg" to indicate that the file creation has been successful. If there has been an issue an error message will appear. You can then click on the “logo.svg” file to view the file.
 
 ![svg file](./assets/images/logo.svg%20file.png)
 

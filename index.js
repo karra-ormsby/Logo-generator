@@ -68,7 +68,7 @@ function init() {
 
 writeToFile = (fileName, data) => {
     fs.writeFile(fileName, data, (err) =>
-        err ? console.log(err) : console.log("logo.svg successfully created!")
+        err ? console.log(err) : console.log("Generated logo.svg")
     );
 }
 
