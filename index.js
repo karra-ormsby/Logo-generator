@@ -1,8 +1,13 @@
+//The inquirer package used to ask the user questions
 const inquirer = require('inquirer');
+//The validate-color package used to make sure the users input for colours is a valid colour keyword or hexadecimal color code
 const { validateHTMLColorName, validateHTMLColorHex } = require("validate-color");
+//Lets us use fs.writeFile
 const fs = require('fs');
+//The rfuctions from render.js
 const { renderShape, renderSVG } = require('./lib/render')
 
+//An array of questions to ask the user
 const questions = [
     {
         type: 'list',
@@ -48,6 +53,7 @@ const questions = [
     }
 ]
 
+//Function to initialise the application
 function init() {
     inquirer
         .prompt(questions)
@@ -66,6 +72,7 @@ function init() {
         });
 }
 
+//Writes the created SVG file to a new file, "logo.svg", or if one already exists it updates the file.
 writeToFile = (fileName, data) => {
     fs.writeFile(fileName, data, (err) =>
         err ? console.log(err) : console.log("Generated logo.svg")
